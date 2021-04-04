@@ -1,0 +1,83 @@
+<hr>
+<form class="formClass" (submit)="submit()">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 row">
+        <div class="col-md-2 col-sm-2 col-xs-2 que-type">
+            <mat-form-field>
+                <mat-label>Select search type</mat-label>
+                <mat-select [(value)]="searchSelected" (selectionChange)="hideData()" required>
+                <mat-option *ngFor="let search of searchTypeList" value={{search}}>{{search}}</mat-option>
+                </mat-select>
+            </mat-form-field> 
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-5">
+            <mat-form-field class="input-full-width">
+                <mat-label>Search...</mat-label>
+                <input matInput placeholder="Search" (click)='hideData()' name="searchQue" #ques ="ngModel" [(ngModel)]="question" required>
+              </mat-form-field>
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-5">
+            
+            <div class="col-md-12 col-sm-12 col-xs-12 row">
+                <div class="col-md-5 col-sm-5 col-xs-5">
+                    <mat-form-field>
+                        <mat-label>Sort Based on</mat-label>
+                        <mat-select [(value)]="sortSelected" (selectionChange)="hideData()" required>
+                        <mat-option *ngFor="let sort of sortDataValueList" value={{sort}}>{{sort}}</mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5">
+                    <mat-form-field>
+                        <mat-label>select Sort type</mat-label>
+                        <mat-select [(value)]="sortType" (selectionChange)="hideData()" required>
+                        <mat-option *ngFor="let type of sortTypeList" value={{type}}>{{type}}</mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <button mat-button class="btn btn-primary" type="submit"> Search </button>
+                </div>
+            </div>
+        </div>
+</div>
+  </form>
+<div *ngIf="!hide">
+<hr *ngIf="displayPage">
+<div *ngIf="displayPage" class="col-md-12 col-sm-12 col-xs-12 row first-index-field" >
+
+    <div class="col-md-4 col-sm-4 col-xs-4">
+       <span class="arror-css" (click)='pageChange("back")'><<</span>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <span>{{pageNumber}}</span>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <span class="arror-css" (click)='pageChange("forward")'>>></span>
+    </div>
+</div>
+<hr *ngIf="displayPage">
+<div>
+    <div *ngFor = "let data of displayData; index as i">
+        <div class="title-display">
+            <b>{{i+1}} <a href={{data.link}} target="_blank">{{data.title}}</a></b>
+        </div>
+        <br>
+        <div class="col-md-12 col-sm-12 col-xs-12 row" >
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <label>Votes:- </label>{{data.score}}
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <label>Views:- </label>{{data.view_count}}
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <label>Owner Name:- </label>{{data.owner.display_name}}
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <label>Owner ID:- </label>{{data.owner.user_id}}
+        </div>
+    </div>
+    <br>
+    </div>
+</div>
+</div>
